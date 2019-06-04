@@ -1,0 +1,14 @@
+<launch>
+
+    <!-- roslaunch cmd_line_rosparam pass_args.launch arg1:="henrique.gcode" -->
+
+
+    <!-- In order to accept parameters from the command line we have to set the parameter before! -->
+    <arg name="arg1"/>
+    <node pkg="cmd_line_rosparam" type="print.py" name="print_passed_parameter" output="screen" args="$(arg arg1)">
+
+        <param name="file_name" value="$(arg arg1)" />
+
+    </node>
+
+</launch>
