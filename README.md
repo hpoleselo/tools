@@ -33,4 +33,8 @@ When getting this error: ``` env: python\r: No such file or directory ``` using 
 
 **You have to edit the opened file to be your python script.**
 
+## Extension Searcher (``` search_extension.py ```)
+
+Place this program to the directory you want to check for Python files. It just checks all the files in the directory which has the .py extension. The goal is to use that to the automated printing process, which will take a parameter from the user and check if that parameter (file to be printed, gcode), exists. 
+
 
