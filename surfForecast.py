@@ -6,8 +6,6 @@ class TideChecker(object):
         def __init__(self):
                 self.response = 0
                 self.checkPage()
-                self.pattern = "preia-mar"
-                self.bora = "itcha"
 
         def checkPage(self):
                 try:
@@ -23,11 +21,10 @@ class TideChecker(object):
                                         print("Not modified.")
                         else:
                                 print("Could not connect to the webpage.")
-                except(AttributeError):
-                        print("Not connected to the internet.")
+                except(ConnectionError):
+                        print("Could not connect to the internet.")
 
         def checkContent(self):
-                #print(self.bora)
                 pageContent = self.response.content
                 # Transform the page into a string so we can parse it
                 pageText = self.response.text
@@ -35,27 +32,30 @@ class TideChecker(object):
                 
 
         def getContent(self, pageText):
-                soup = BS(pageText)
-                # Searching for the div id!
-                highTide1 = soup.find("div", {"id" : "grafico_estado_actual_texto_pleamar"})
-                print (highTide1)
-                lowTide1 = soup.find("div", {"id" : "grafico_estado_actual_texto_bajamar"})
-                print(lowTide1)
-                highTide2 = soup.find("div", {"class" : "tabla_mareas_marea_hora tabla_mareas_hora_bajamar"})
-                print(highTide2)
-
-        def searchPattern(self, pageText):
-                """ Deprecated... using BeautifulSoup! """
-                #pattern = self.pattern
-                pattern="preia-mar"
-                pattern2="baixa-mar"
-                smth = re.findall(pattern, pageText)
-                smth2 = re.findall(pattern2, pageText)
-                # quando encontrar a palavra, procurar a key q ela se encontra e pegar essa posicao
-                print (smth)
-                print (smth2)
+                soup = BS(pageText, "lxml")
+                
+                testao = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"}).text
+                # so ta pegando o primeiro resultado, queremos todos!
+                testao2 = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"}).find_all('span', {'class' : "rojo"})
+                print(testao2)
+                
 
 
+                # Funciona
+                primeiraPreiaMar = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {"id" : "grafico_estado_actual_texto_pleamar"}).text
+                print(primeiraPreiaMar)
+                primeiraBaixaMar = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {"id" : "grafico_estado_actual_texto_bajamar"}).text
+                print(primeiraBaixaMar)
+
+                # Nao Funciona, por que?
+                """
+                primeiroParsing = soup.find('div', {'class' : "grafico_estado_actual_fondo"})
+                segundoParsing = primeiroParsing.find('div', {"id" : "grafico_estado_actual_texto_pleamar"}).text)
+                print(segundoParsing)
+                """
+               
+                
+                
 
 def run():
         TideChecker()
