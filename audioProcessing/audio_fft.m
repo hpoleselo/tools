@@ -2,10 +2,13 @@
 % ele irá converter o arquivo em amplitudes pelo tempo amostral fs 44100
 % e guardar as amplitudes em data
 
-% para ouvir o audio fazemos sound(data,fs)
+% comprimento do audio eh o data*frequencia, vai dar em segundos
 
-%fs eh frequency sample
-sound(data,fs);
-plot(fs,data);
-% tf de fourier do sinal
-%x_fft = fft(data);
+% para ouvir o audio fazemos sound(data,fs)
+%sound(data,fs);
+plot(data);
+lengthOfSignal = length(data);
+% tf de fourier do sinal, precisamos do parametro length pra determinar o
+% tamanho do nosso pi! a tf so funciona assim
+x_fft = fft(data);
+plot(abs(44100,x_fft));

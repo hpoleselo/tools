@@ -1,0 +1,11 @@
+*.pyc
+*.so
+*.zip
+*.log
+*.txt
+*.pdf
+*.ogg
+*__pycache__
+__pycache__
+*.jpg
+*.png

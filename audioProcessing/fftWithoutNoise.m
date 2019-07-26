@@ -3,6 +3,7 @@
 % Notes we should see one impulse on the frequency 60hz.
 
 function fftWithoutNoise()
+    Fs = 1500;
     % Period sample
     Ts = 1/Fs;
     % Length of the signal
@@ -13,15 +14,15 @@ function fftWithoutNoise()
     t = (0:L-1)*Ts;
 
     % Input signal parameters
-    amp = 2;
+    amp = 4;
     freq = 60;
     % Input signal, vm*sin(2pift)
     Sinput = amp*sin(freq*2*pi*t);
-
     % Plot the signal on time domain
     % Since the signal's freq is quite high, we would see too much on the graph
     % So we scale it by (1:freq)
     %plot(t,Sinput)
+    plot()
     plot(1000*t(1:60),Sinput(1:60))
     title('Original Signal')
     xlabel('t (ms)')
@@ -32,15 +33,20 @@ function fftWithoutNoise()
 
     % a fft vai retornar numeros complexos, por isso o abs dela retornara a
     % magnitude do numero complexo!
-    P2 = abs(fft_test/L); % fft/length of signal
-    P1 = P2(1:L/2+1);
-    P1(2:end-1) = 2*P1(2:end-1);
+    FrequenciasDoEixoX = (0:L-1)*(Fs/L)
+    xToPlot = FrequenciasDoEixoX(1:floor(L));
+    plot(xToPlot, abs(fft_test)/L)
+    
+    %P2 = abs(fft_test/L); % fft/length of signal
+    %plot(P2);
+    %P1 = P2(1:L/2+1);
+    %P1(2:end-1) = 2*P1(2:end-1);
 
     % "Building" the frequency domain, i.e the x-axis! 
     f = Fs*(0:(L/2))/L;
-    figure
-    title('Two-sided spectrum')
-    xlabel('frequency (Hz)')
-    ylabel('Magnitude of the FFT')
-    plot(f,P1)
+    %figure
+    %title('Two-sided spectrum')
+    %xlabel('frequency (Hz)')
+    %ylabel('Magnitude of the FFT')
+    %plot(f,P1)
 end
