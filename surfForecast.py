@@ -21,7 +21,7 @@ class TideChecker(object):
                                         print("Not modified.")
                         else:
                                 print("Could not connect to the webpage.")
-                except(ConnectionError):
+                except:
                         print("Could not connect to the internet.")
 
         def checkContent(self):
@@ -33,29 +33,22 @@ class TideChecker(object):
 
         def getContent(self, pageText):
                 soup = BS(pageText, "lxml")
+                container = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"})
+
+                baixaMar = container.find_all('span', {'class' : "rojo"})
+
+                for lowTide in baixaMar:
+                        print(lowTide.string)
                 
-                testao = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"}).text
-                # so ta pegando o primeiro resultado, queremos todos!
-                testao2 = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"}).find_all('span', {'class' : "rojo"})
-                print(testao2)
-                
+                preiaMar = container.find_all('span', {'class' : "azul"})
+
+                for highTide in preiaMar:
+                        print(highTide.string)
 
 
-                # Funciona
-                primeiraPreiaMar = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {"id" : "grafico_estado_actual_texto_pleamar"}).text
-                print(primeiraPreiaMar)
-                primeiraBaixaMar = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {"id" : "grafico_estado_actual_texto_bajamar"}).text
-                print(primeiraBaixaMar)
-
-                # Nao Funciona, por que?
-                """
-                primeiroParsing = soup.find('div', {'class' : "grafico_estado_actual_fondo"})
-                segundoParsing = primeiroParsing.find('div', {"id" : "grafico_estado_actual_texto_pleamar"}).text)
-                print(segundoParsing)
-                """
+        def telegramBot(self):
+                pass
                
-                
-                
 
 def run():
         TideChecker()
