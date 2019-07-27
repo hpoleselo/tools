@@ -2,25 +2,33 @@
 
 
 
-## .bag to .csv Converter (``` convert.sh ```)
+## Telegram Bot Tide Checker ([``` /SurfBot ```](https://github.com/hpoleselo/tools/tree/master/SurfBot))
+
+Telegram bot that sends a message to a channel in Telegram from a python web-scrapped page about tides levels from Vilas do Atlântico.
+
+## Simple Webpage Scraping with Python ([``` surfForecast.py ```](https://github.com/hpoleselo/tools/blob/master/surfForecast.py))
+
+Gets the tides levels from the website by scraping it with ``` requests ``` and ``` BeautifulSoup ```.
+
+## .bag to .csv Converter ([``` convert.sh ```](https://github.com/hpoleselo/tools/blob/master/convert.sh))
 
 Copy the file to the folder you want to convert.
 
 ``` $ ./convert.sh YOURBAGFILE.bag THENAMEOFTHEOUTPUTFILE```
 
-## .png to .jpg (``` convert.py ```)
-
-Drag this file to the wished folder and just run it, it will do the conversion automatically.
-
-## Automated login to Raspberry Pi (``` pipass.py ```)
+## Automated login to Raspberry Pi ([``` pipass.py ```](https://github.com/hpoleselo/tools/blob/master/pipass.py))
 
 Logins in to the RPi with aid of SSH, the script just opens the file which contains the password in form of text. It was pretty annoying at the time because i always forgot the IP and too tired for typing password in.
+
+## Simple Telegram Bot (``` helloTelegram.py ```)
+
+Simple Telegram bot to get the feeling of using Telegram's API.
 
 ## Quaternion Tester (``` quaternionTester.py ```)
 
 Useful for working with pose probe on RVIZ. Takes an actual pose (given inside the program) and changes rotation by given axis.
 
-## Parameters passing ROS (``` cmd_line_rosparam ```)
+## Parameters passing ROS ([``` /cmd_line_rosparam ```](https://github.com/hpoleselo/tools/tree/master/cmd_line_rosparam))
 
 Pass arguments from command line to rosparam and then extracting it in a Python script, example:
 
@@ -36,5 +44,9 @@ When getting this error: ``` env: python\r: No such file or directory ``` using 
 ## Extension Searcher (``` search_extension.py ```)
 
 Place this program to the directory you want to check for Python files. It just checks all the files in the directory which has the .py extension. The goal is to use that to the automated printing process, which will take a parameter from the user and check if that parameter (file to be printed, gcode), exists. 
+
+## .png to .jpg (``` convert.py ```)
+
+Drag this file to the wished folder and just run it, it will do the conversion automatically.
 
 
