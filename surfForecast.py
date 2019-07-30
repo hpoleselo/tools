@@ -1,5 +1,6 @@
 import requests
 import re
+import sys
 from bs4 import BeautifulSoup as BS
 
 class TideChecker(object):
@@ -19,10 +20,14 @@ class TideChecker(object):
                                         print("Retrieved data but no content.")
                                 elif self.response.status_code == 304:
                                         print("Not modified.")
-                        else:
-                                print("Could not connect to the webpage.")
-                except:
-                        print("Could not connect to the internet.")
+                except(requests.exceptions.ConnectionError, ConnectionError): #P q Connectionerroe nao eh levado em conta?
+                        print("Could not connect to the internet, network error. Check if you're connected to the internet.")
+                        # Do something to not run the other programs on our telegram
+                except(requests.exceptions.Timeout, requests.exceptions.ConnectTimeout):
+                        print("Connection timed out.")
+                except(requests.exceptions.RequestException):
+                        print("Didn't catch the error with the previous exceptions, some brutal error is going on...")
+                        sys.exit(1)
 
         def checkContent(self):
                 pageContent = self.response.content
@@ -45,10 +50,6 @@ class TideChecker(object):
                 for highTide in preiaMar:
                         print(highTide.string)
 
-
-        def telegramBot(self):
-                pass
-               
 
 def run():
         TideChecker()
