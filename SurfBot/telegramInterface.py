@@ -1,8 +1,8 @@
+import logging
+import re
 from telegram import Bot
 from telegram.ext import Updater, CommandHandler
-import logging
 import seaForecast
-import re
 
 
 
@@ -85,11 +85,4 @@ def run():
     tb.runBot()
 
 if __name__ == "__main__":
-    run()except(requests.exceptions.ConnectionError, ConnectionError): #P q Connectionerroe nao eh levado em conta?
-                        print("Could not connect to the internet, network error. Check if you're connected to the internet.")
-                        # Do something to not run the other programs on our telegram
-                except(requests.exceptions.Timeout, requests.exceptions.ConnectTimeout):
-                        print("Connection timed out.")
-                except(requests.exceptions.RequestException):
-                        print("Didn't catch the error with the previous exceptions, some brutal error is going on...")
-                        sys.exit(1)
+    run()
