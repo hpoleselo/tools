@@ -1,5 +1,6 @@
 import requests
 import re
+import sys
 from bs4 import BeautifulSoup as BS
 
 class TideChecker(object):
@@ -11,27 +12,35 @@ class TideChecker(object):
 
 
         def checkPage(self):
-                #try:
-                self.response = requests.get('https://tabuademares.com/br/bahia/lauro-de-freitas')
-                if self.response.status_code:
-                        if self.response.status_code == 200:
-                                # Standard of this page will be utf-8 because it has special characters
-                                self.response.encoding = "utf-8"
-                                self.checkContent()
-                        elif self.response.status_code == 204:
-                                print("Retrieved data but no content.")
-                        elif self.response.status_code == 304:
-                                print("Not modified.")
-                else:
-                        print("Could not connect to the webpage.")
-                #except:
-                #        print("Could not connect to the internet.")
+                try:
+                        self.response = requests.get('https://tabuademares.com/br/bahia/lauro-de-freitas')
+                        if self.response.status_code:
+                                if self.response.status_code == 200:
+                                        # Standard of this page will be utf-8 because it has special characters
+                                        self.response.encoding = "utf-8"
+                                        self.checkContent()
+                                elif self.response.status_code == 204:
+                                        print("Retrieved data but no content.")
+                                elif self.response.status_code == 304:
+                                        print("Not modified.")
+                except(requests.exceptions.ConnectionError):
+                        print("[ERROR]: Could not connect to the internet, network error. Check if you're connected to the internet.")
+                        sys.exit(1)
+                except(requests.exceptions.Timeout, requests.exceptions.ConnectTimeout):
+                        print("[ERROR]: Connection timed out.")
+                except requests.exceptions.HTTPError as errh:
+                        print ("[ERROR]: HTTP Error:", errh)
+                except(requests.exceptions.RequestException):
+                        print("[ERROR]: Didn't catch the error with the previous exceptions, some brutal error is going on...")
+                        sys.exit(1)
+
 
         def checkContent(self):
                 pageContent = self.response.content
                 # Transform the page into a string so we can parse it
                 pageText = self.response.text
                 self.getContent(pageText)
+                print("[INFO]: Got content from webpage. ")
                 
 
         def getContent(self, pageText):
@@ -62,12 +71,6 @@ class TideChecker(object):
                         low1 = "0"
                         low2 = "0"
                         return high1, high2, low1, low2
-                
 
-#def run():
-#        tc = TideChecker()
-#        oi,oi1,oi2,oi3 = tc.seeTides()
-
-
-#if __name__ == "__main__":
-#        run()
+#td = TideChecker()
+#td.seeTides()

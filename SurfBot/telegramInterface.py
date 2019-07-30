@@ -37,12 +37,14 @@ class TeleBot(object):
         Receives the token as argument and message that must be sent as argument. """
         bot = Bot(token=self.tk)
         # Gets the tide information to pass to the message body
+        print("[INFO]: Sending message to channel")
         self.getForecast()
         bot.send_message(chat_id=self.channelID, text=self.firstHigh)
         bot.send_message(chat_id=self.channelID, text=self.secondHigh)
         bot.send_message(chat_id=self.channelID, text=self.firstLow)
         bot.send_message(chat_id=self.channelID, text=self.secondLow)
     
+            
     # ----- Functions on telegram to interact with bot ------
 
     def start(self, update, context):
@@ -68,10 +70,13 @@ class TeleBot(object):
         self.dispatcher.add_handler(tidesHandler)
 
     def runBot(self):
-        print("[INFO]: Bot running.")
-        self.updater.start_polling()
-        self.helloWorld()
+        print("[INFO]: Trying to run Bot...")
+        # Commented out because we're using the Bot only as interface to send automate messages to our channel!
+        # If we wanted to really use the bot and its functions we would then uncomment both here
+        #self.updater.start_polling()
+        #self.helloWorld()
         self.sendMessageChannel()
+        print("[INFO]: Message sent. Exiting...")
 
 
 
@@ -80,8 +85,11 @@ def run():
     tb.runBot()
 
 if __name__ == "__main__":
-    run()
-
-
-
-    
+    run()except(requests.exceptions.ConnectionError, ConnectionError): #P q Connectionerroe nao eh levado em conta?
+                        print("Could not connect to the internet, network error. Check if you're connected to the internet.")
+                        # Do something to not run the other programs on our telegram
+                except(requests.exceptions.Timeout, requests.exceptions.ConnectTimeout):
+                        print("Connection timed out.")
+                except(requests.exceptions.RequestException):
+                        print("Didn't catch the error with the previous exceptions, some brutal error is going on...")
+                        sys.exit(1)
