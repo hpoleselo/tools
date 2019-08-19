@@ -40,7 +40,6 @@ class TideChecker(object):
                 # Transform the page into a string so we can parse it
                 pageText = self.response.text
                 self.getContent(pageText)
-                print("[INFO]: Got content from webpage. ")
                 
 
         def getContent(self, pageText):
@@ -65,7 +64,7 @@ class TideChecker(object):
                         low2 = self.lowTideList[2] + ": " + self.lowTideList[3]
                         return high1, high2, low1, low2
                 except(IndexError):
-                        print("[INFO]: Could not retrieve data from the list because maybe we're not connected to the website.")
+                        print("[INFO]: Could not retrieve data from the list because some HTTP error.")
                         high1 = "0"
                         high2 = "0"
                         low1 = "0"
