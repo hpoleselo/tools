@@ -1,0 +1,15 @@
+<robot name="myfirst">
+<link name="world" xyz="0 0 0" />
+
+  <joint name="world_table_j" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="world"/>
+    <child link="table" />
+  </joint>  
+
+  <link name="table">
+    <visual>
+      <origin xyz="1 1 1" rpy="0 0 0"/>
+    </visual>
+  </link> 
+</robot>
