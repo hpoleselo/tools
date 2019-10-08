@@ -1,12 +1,13 @@
-const int potenciometro = 0; // pino de entrada do potenciômetro
-int valor = 0;
+// Analog Pin A0 from the potentiometer (the middle pin from the potentiometer)
+const int potentiometer = 0;
+int value = 0;
  
 void setup() {
   Serial.begin(9600);
 }
  
 void loop() {
-  valor = analogRead(potenciometro);
-  Serial.println(valor);
-  delay(100);
+  value = analogRead(potentiometer);
+  Serial.println(value);
+  delay(10);
 }
