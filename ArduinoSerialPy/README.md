@@ -2,6 +2,16 @@
 Receives any analog reading (one dimensional) from the serial communication with baudrate of 9600 bps and plots
 the data in real time using Matplotlib.
 
+## Installation
+
+Needed packages in order to the script to work:
+
+``` $ sudo pip3.6 install serial ```
+
+``` $ sudo pip3.6 install matplotlib ```
+
+``` $ sudo pip3.6 install multiprocess ```
+
 ## Tested setup
 I used the following setup:
 
@@ -9,5 +19,6 @@ I used the following setup:
 
 Upload the code to your Arduino using Arduino IDE or command line
 
-After uploading run the python program
+After uploading run the python program:
+
 ```$ python dataReceiver.py ```
