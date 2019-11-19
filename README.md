@@ -52,6 +52,6 @@ Drag this file to the wished folder and just run it, it will do the conversion a
 
 Simple reminder of how to initialize a thread in Python
 
-## Simple Thread Program ([``` /ArduinoSerialPy ```](https://github.com/hpoleselo/tools/tree/master/ArduinoSerialPy))
+## Arduino Python Plotter ([``` /ArduinoSerialPy ```](https://github.com/hpoleselo/tools/tree/master/ArduinoSerialPy))
 
 Plots two vectors in real time using Python and Arduino. Check inside the folder for the Readme better instructions
