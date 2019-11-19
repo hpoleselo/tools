@@ -34,7 +34,6 @@ Pass arguments from command line to rosparam and then extracting it in a Python 
 
 ``` $ roslaunch cmd_line_rosparam pass_args.launch arg1:="henrique.gcode" ```
 
-
 ## CR Character error ([``` crCharactersConvert.py ```](https://github.com/hpoleselo/tools/blob/master/crCharactersConvert.py))
 
 When getting this error: ``` env: python\r: No such file or directory ``` using the shebang on the beginning of your Python code CAN (rarely) be caused because of CR characters, which are line breakers from Java (\r). I really don't know why this happenned, but this script when ran, replaces all ```\r``` for empty. (MAKE SURE TO MAKE A BACKUP OF YOUR CODE) 
@@ -49,4 +48,10 @@ Place this program to the directory you want to check for Python files. It just 
 
 Drag this file to the wished folder and just run it, it will do the conversion automatically.
 
+## Simple Thread Program ([``` thread_example.py ```](https://github.com/hpoleselo/tools/blob/master/convert.py))
 
+Simple reminder of how to initialize a thread in Python
+
+## Simple Thread Program ([``` /ArduinoSerialPy ```](https://github.com/hpoleselo/tools/tree/master/ArduinoSerialPy))
+
+Plots two vectors in real time using Python and Arduino. Check inside the folder for the Readme better instructions
