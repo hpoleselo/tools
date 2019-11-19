@@ -6,11 +6,9 @@ the data in real time using Matplotlib.
 
 Needed packages in order to the script to work:
 
-``` $ sudo pip3.6 install serial ```
+``` $ pip3.6 install serial ```
 
-``` $ sudo pip3.6 install matplotlib ```
-
-``` $ sudo pip3.6 install multiprocess ```
+``` $ pip3.6 install matplotlib ```
 
 ## Tested setup
 I used the following setup:
