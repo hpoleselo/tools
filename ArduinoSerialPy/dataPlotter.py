@@ -21,8 +21,8 @@ ser = serial.Serial('/dev/ttyACM0', 9600)
 print("Using port: %s") %ser.name
 
 # Setup for plotting in Matplotlib
-style.use('Solarize_Light2')
-#fast, classic
+style.use('fivethirtyeight')
+
 xs = []
 ys = []
 fig = plt.figure()
@@ -65,7 +65,8 @@ def plotData(i):
     ax1.plot(xs,ys)
 
 def saveData():
-    """ Store the retrieved data into a csv file. """
+    """ Store the retrieved data into a txt file to the local where the script is running. """
+    outputFile = "logFromATMega328.txt"  
     global xs,ys
     # Combines lists together
     rows = zip(xs, ys)
@@ -74,7 +75,8 @@ def saveData():
     row_arr = np.array(rows)
 
     # Saves data in file (load w/np.loadtxt())
-    np.savetxt(".", row_arr)
+    np.savetxt(outputFile, row_arr)
+
 
 def main():
     """ Calls the plotData() constantly """
