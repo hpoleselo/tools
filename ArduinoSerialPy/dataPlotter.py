@@ -4,6 +4,8 @@
 import serial
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import glob
+import sys
 from matplotlib import style
 import numpy as np
 import argparse
@@ -15,9 +17,15 @@ ap.add_argument("-r", "--refreshrate", type=int, required=True,
 	help="Every x milliseconds the data will be acquired")
 args = vars(ap.parse_args())
 
-# Arduino is set always in linux to /dev/ttyUSB0, baudrate matches Arduino's
-#ser = serial.Serial('/dev/ttyUSB0', 9600)
-ser = serial.Serial('/dev/ttyACM0', 9600)
+# Identifying which port is being used (Works only on Linux)
+port1 = "/dev/ttyACM0"
+port2 = "/dev/ttyUSB0"
+
+if (glob.glob(port1)==[port1]): 
+	ser = serial.Serial(port1, 9600)
+else: 
+	ser = serial.Serial(port2, 9600)
+
 print("Using port: %s") %ser.name
 
 # Setup for plotting in Matplotlib
@@ -26,9 +34,7 @@ style.use('fivethirtyeight')
 xs = []
 ys = []
 fig = plt.figure()
-fig.suptitle('Your Sensor Data x Time(s)', fontsize=20)
-plt.xlabel('Tempo (ms)', fontsize=18)
-plt.ylabel('Sensor', fontsize=16)
+fig.suptitle('Sensor Acquisition', fontsize=18)
 
 # Um plot 1x1 e o plot eh o numero 1
 ax1 = fig.add_subplot(1,1,1)
@@ -39,10 +45,9 @@ dataFromSerial = 0
 saveLog = args["savelog"]
 refreshRate = args["refreshrate"]
 
-# Adicionar argparse com a taxa de atualizacao e True se for pra salvar log
 
 def readFromSerial():
-    """ Opening and echoing the Serial port. """
+    """ Reads the data from the opened serial port and separates the data into a list. """
     try:
         # Reads until it gets a carriage return. MAKE SURE THERE IS A CARRIAGE RETURN OR IT READS FOREVER
         data = ser.readline()
@@ -52,42 +57,49 @@ def readFromSerial():
     except(KeyboardInterrupt):
         ser.close()
 
+
 def plotData(i):
     """ Plot the retrieved data from Arduino via serial communication using matplotlib. """
     global xs, ys    
     data = readFromSerial()
-    #if len(data) > 1:
-    # Extract the element from the list
-    strToSplit = data[0]
-    # Separate the time and sensor data
-    x, y = strToSplit.split(',')
+    try:
+        #if len(data) > 1:
+        # Extract the element from the list
+        strToSplit = data[0]
+        # Separate the time and sensor data
+        x, y = strToSplit.split(',')
 
-    # The data must me plotted as float not as a string!
-    xs.append(float(x))
-    # convert from mili seconds to seconds
-    # xs = xs/1000
-    ys.append(float(y))
-    # Clean everything before we plot
-    ax1.clear()
-    # TODO set the labels later 
-    ax1.plot(xs,ys)
+        # The data must me plotted as float not as a string!
+        xs.append(float(x))
+        ys.append(float(y))
+
+        # Clean everything before we plot
+        ax1.clear()
+
+        # Had to set the names here because in the initialization they would not be permanent 
+        ax1.set_xlabel('Time (ms)')
+        ax1.set_ylabel('Sensor')
+        ax1.plot(xs,ys)
+    except(ValueError):
+        print("Retrieved the data in a wrong manner. Run it one more time")
+        sys.exit(0)
+
 
 def saveData():
-    """ Store the retrieved data into a txt file to the local where the script is running. """
-    outputFile = "logFromATMega328.txt"  
+    """ Store the retrieved data into a txt file to the local where the script is running. """  
     global xs,ys
+    outputFile = "dataAcquisition.txt"
+
     # Combines lists together
     rows = zip(xs, ys)
 
     # Creates array from list
     row_arr = np.array(rows)
-
-    # Saves data in file (load w/np.loadtxt())
     np.savetxt(outputFile, row_arr)
 
 
 def main():
-    """ Calls the plotData() constantly """
+    """ Calls the plotData function constantly """
     animt = animation.FuncAnimation(fig, plotData, interval=refreshRate)
     plt.show()
     if saveLog:
