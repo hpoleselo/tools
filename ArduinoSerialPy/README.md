@@ -21,4 +21,8 @@ Upload the code to your Arduino using Arduino IDE or command line
 
 After uploading run the python program:
 
-```$ python dataReceiver.py ```
+```$ python dataPlotter.py -s True -r 300 ```
+
+Where the flags:
+- s "True" means the values plotted will be saved on a txt file in the same directory as the python script
+- r "300" means every 300ms the graph will be updated
