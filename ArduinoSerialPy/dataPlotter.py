@@ -26,6 +26,10 @@ style.use('fivethirtyeight')
 xs = []
 ys = []
 fig = plt.figure()
+fig.suptitle('Your Sensor Data x Time(s)', fontsize=20)
+plt.xlabel('Tempo (ms)', fontsize=18)
+plt.ylabel('Sensor', fontsize=16)
+
 # Um plot 1x1 e o plot eh o numero 1
 ax1 = fig.add_subplot(1,1,1)
 
@@ -88,6 +92,7 @@ def main():
     plt.show()
     if saveLog:
         saveData()
+        fig.savefig('graphFromSensor.jpg')
 
 if __name__ == "__main__":
     main()
