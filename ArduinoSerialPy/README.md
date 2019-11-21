@@ -2,6 +2,8 @@
 Receives any analog reading (one dimensional) from the serial communication with baudrate of 9600 bps and plots
 the data in real time using Matplotlib.
 
+![show](https://user-images.githubusercontent.com/24254286/69299825-52f3fe00-0bf0-11ea-92d8-9befbe3138c1.gif)
+
 ## Installation
 
 Needed packages in order to the script to work:

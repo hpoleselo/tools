@@ -57,11 +57,15 @@ def plotData(i):
     strToSplit = data[0]
     # Separate the time and sensor data
     x, y = strToSplit.split(',')
+
     # The data must me plotted as float not as a string!
     xs.append(float(x))
+    # convert from mili seconds to seconds
+    # xs = xs/1000
     ys.append(float(y))
     # Clean everything before we plot
     ax1.clear()
+    # TODO set the labels later 
     ax1.plot(xs,ys)
 
 def saveData():
