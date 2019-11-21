@@ -1,7 +1,7 @@
 // Analog Pin A0 from the potentiometer (the middle pin from the potentiometer)
 const int potentiometer = 0;
 int value = 0;
-int actualTime = 0;
+unsigned int actualTime = 0;
  
 void setup() {
   Serial.begin(9600);
@@ -13,5 +13,5 @@ void loop() {
   Serial.print(actualTime);
   Serial.print(",");
   Serial.println(value);
-  delay(100);
+  delay(50);
 }
