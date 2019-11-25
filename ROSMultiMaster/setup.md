@@ -17,7 +17,11 @@ To make this change permanent go to your bashrc and add the command:
 
 ``` cd ~/ ```
 
-``` $ echo export ROS_MASTER_URI='http://YOURIPADDRESS:11311' >> .bashrc ```
+``` $ echo "exprosip() { export ROS_MASTER_URI='http://YOURIPADDRESS:11311 } " >> .bashrc ```
+
+Now everytime you want to export your ip, just call the alias function:
+
+``` $ exprosip ```
 
 Add the computers you want to see on multimaster (i don't think this is really needed)
 
