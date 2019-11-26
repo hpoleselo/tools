@@ -1,3 +1,6 @@
+# ROS Multimaster Setup
+The following setup is just a summary from the original work from [Multi-master ROS Systems](http://www.iri.upc.edu/files/scidoc/1607-Multi-master-ROS-systems.pdf). 
+
 ## Installation
 
 ``` $ sudo apt-get install ros-kinetic-multimaster-fkie ```
