@@ -1,0 +1,157 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+  [[firos_tm]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 5afa6daa-9fe5-496d-a0b3-08f02c2221c7
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:24
+      size = 1920, 1056
+      title = henrivis@c-137: ~
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 957
+      ratio = 0.5
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 525
+      ratio = 0.5
+      type = VPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 525
+      ratio = 0.5
+      type = VPaned
+    [[[child6]]]
+      order = 0
+      parent = child5
+      position = 475
+      ratio = 0.49947753396
+      type = HPaned
+    [[[child9]]]
+      order = 1
+      parent = child5
+      position = 475
+      ratio = 0.49947753396
+      type = HPaned
+    [[[terminal10]]]
+      command = ros; ws2
+      order = 0
+      parent = child9
+      profile = default
+      type = Terminal
+      uuid = 59434ed7-5cfe-46e5-af70-b4d90811eccc
+    [[[terminal11]]]
+      command = run_octoprint
+      order = 1
+      parent = child9
+      profile = default
+      type = Terminal
+      uuid = 61072e33-9d3c-4e05-922d-a97fd4cc179a
+    [[[terminal3]]]
+      command = ""
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 5afa6daa-9fe5-496d-a0b3-08f02c2221c7
+    [[[terminal4]]]
+      command = '''curl 150.162.6.64:1026/v2/entities -s -S -H 'Accept: application/json' | python -mjson.tool
+'''
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = f4b59309-b9b6-4130-b62e-77fcfb5fa626
+    [[[terminal7]]]
+      command = ros ; ws2
+      order = 0
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = 39649ab6-2627-424d-9e95-94c32f3295b3
+    [[[terminal8]]]
+      command = ros; ws2
+      order = 1
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = c1f588fc-e7d1-4538-9c9e-1f52d3b0bc46
+  [[ros]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 20ab9779-0374-4c70-9b1b-b06522877943
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:24
+      size = 1920, 1056
+      title = henrivis@c-137: ~
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 955
+      ratio = 0.499739583333
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 523
+      ratio = 0.499526515152
+      type = VPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 523
+      ratio = 0.499526515152
+      type = VPaned
+    [[[terminal3]]]
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 20ab9779-0374-4c70-9b1b-b06522877943
+    [[[terminal4]]]
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 6fa2b12e-18ab-4c70-9a2f-4fd8002c7fb0
+    [[[terminal6]]]
+      order = 0
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = c8e8c32a-f25f-48ec-a9f0-a92096b3baf4
+    [[[terminal7]]]
+      order = 1
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = 3b31b9bb-8a19-4759-92fb-5c26bc613184
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.74
+    background_image = None
+    background_type = transparent
+    foreground_color = "#00ff00"
