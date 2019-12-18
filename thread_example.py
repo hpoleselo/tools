@@ -9,6 +9,7 @@ def worker(message):
     """ Funcao que eh chamada no thread """
     global count
     while True:
+	print("Dentro da thread")
         count = count + 1
         time.sleep(3)
 

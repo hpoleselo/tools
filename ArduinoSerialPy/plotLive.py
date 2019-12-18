@@ -21,6 +21,8 @@ def animate(i):
     ys = []
 
     for line in lines:
+        print(line)
+        print(type(line))
         # Corta as linhas vazias
         if len(line)>1:
             # , pois o arquivo eh separado por virgula
