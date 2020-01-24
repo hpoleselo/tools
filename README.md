@@ -55,3 +55,9 @@ Simple reminder of how to initialize a thread in Python
 ## Arduino Python Plotter ([``` /ArduinoSerialPy ```](https://github.com/hpoleselo/tools/tree/master/ArduinoSerialPy))
 
 Plots two vectors in real time using Python and Arduino. Check inside the folder for the Readme better instructions
+
+## Kazam mp4 Video Converter ([``` /convertVideo ```](https://github.com/hpoleselo/tools/tree/master/convertVideo))
+
+When screencording with Kazam although the output video is in ``` .mp4 ```, sending in to WhatsApp directly or editing in Sony Vegas/Adobe Premiere is not possible, with this small program everything's solved:
+
+``` $ ./convertmp4.sh THENAMEOFYOURVIDEO.mp4 ```
