@@ -12,4 +12,4 @@ cd ~ | sleep 2 | echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.
 | echo "alias surfbot='cd ~/Documents/Codigos/SurfBot/ ; python3.5 telegramInterface.py ;'" >> .bashrc \
 | echo "alias ws='source ~/catkin_ws/devel/setup.bash ;'" >> .bashrc \
 | echo "alias exportarIp='export ROS_MASTER_URI='http://192.168.13.150:11311' ;'" >> .bashrc \
-| echo "alias ur5='cd ~/InstalledPrograms/ursim-3.4.4-97 ; ./start-ursim.sh ;'" >> .bashrc
+| echo "alias ur5='cd ~/InstalledPrograms/ursim-3.9.0.64176 ; ./start-ursim.sh ;'" >> .bashrc
