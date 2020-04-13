@@ -4,7 +4,7 @@
 # Using aliases (better because one can list the aliases!)
 cd ~ | sleep 2 | echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.virtualenvs ; source /usr/local/bin/virtualenvwrapper.sh ; workon cv ;'" >> .bashrc \
 | echo "alias ros='source /opt/ros/kinetic/setup.bash ;'" >> .bashrc \
-| echo "alias run_octoprint='sudo chmod +666 /dev/ttyACM0 ; octoprint serve ; }'" >> .bashrc \
+| echo "alias run_octoprint='sudo chmod +666 /dev/ttyACM0 ; octoprint serve ; '" >> .bashrc \
 | echo "alias ros='source /opt/ros/kinetic/setup.bash ;'" >> .bashrc \
 | echo "PATH=$PATH:~/catkin_ws/src/octoROS/src" >> .bashrc \
 | echo "alias reiniciar_placa_rede='sudo service network-manager restart ;'" >> .bashrc \
