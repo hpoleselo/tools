@@ -15,4 +15,5 @@ cd ~ | sleep 2 | echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.
 | echo "alias ur5='cd ~/InstalledPrograms/ursim-3.9.0.64176 ; ./start-ursim.sh ;'" >> .bashrc \
 | echo "alias webb='cd ~/Documents/Codigos/Webpage ; code . ;'" >> .bashrc \
 | echo "alias prog='cd ~/Documents/Codigos ;'" >> .bashrc \
-| echo "alias scp-example='echo Example: scp archive_to_be_sent.py  TARGET_USER@TARGET_IP:~/Desktop'" >> .bashrc
+| echo "alias scp-example='echo Example: scp archive_to_be_sent.py  TARGET_USER@TARGET_IP:~/Desktop'" >> .bashrc \
+| echo "alias ex-ffmpeg='echo Example: ffmpeg -i filename.mkv -vcodec copy -acodec copy 1.mp4 ;'" >> .bashrc
