@@ -1,9 +1,8 @@
 ## Quick Notes on Video Conversion
-I was using at principle ``` ffmpeg ```, but since i was having too much trouble (getting the video but the audio wouldn't play on iPhone, despite playing on PC), i decided to use ``` Handbrake ```, which did work on iPhone X.
+I was using at principle ``` ffmpeg ```, but since I was having too much trouble (getting the video but the audio wouldn't play on iPhone, despite playing on PC), I decided to use ``` Handbrake ```, which did work on iPhone X.
 Anyway i'm using this ``` .md ``` as a way to document what i've read in order to TRY to convert it correctly.
 
-
-### Basics
+#### Basic Structure
 
 What we actually call the file extension (mp4, mkv etc) can be a media container, the video format is dictated by the video codec. The container synchronises sound and image (subtitle as well) in one piece.
 
@@ -19,13 +18,13 @@ Example of containers (file formats) are: ```.mp4```,``` .m4v```, ```.mkv```, ``
 *MKV is better because it has more features than MP4 and it’s open source*
 *The M4V file format is a video container format developed by Apple and is very similar to the MP4 format. But M4V files may optionally be protected by DRM copy protection.*
 
-### Handbrake vs FFmpeg
+#### Handbrake vs FFmpeg
 
 Both programs use the same encoders on back-end. H264 is encoded using a software library called x264 and HEVC uses a software library called x265.
 Handbrake has a nice GUI and hides advanced options that are available in ffmpeg, so in fact you have more control in ffmpeg. Speed and quality would be the same supposing we're using the same settings.
 
 
-### Personal Experience with ffmpeg
+#### Personal experience with ffmpeg
 
 ``` $ $ mediainfo video.mp4 ```
 
@@ -59,9 +58,11 @@ Codec ID                                 : 40
 Duration                                 : 4s 459ms
 ```
 
-No final das contas o comando que eu usei para TENTAR incluir o AAC e não funcionou, principalmente pelo pacote libfdk_aac não ser free, ou seja, nao vem built-in com o ffmpeg, foi esse:
+In the end, the command that ended up working was: the audio component had to use the aac encoding system and ``` -strict -2 ``` was used because aac is an experimental encoding sys. on ffmpeg and we had to activate it.
 
-```$ ffmpeg -i teste.mkv -c:v libx264 -profile:v main -level:v 4.0 -c:a libfdk_aac -profile:a lc output.mp4 ```
+```$ ffmpeg -i vokoscreen-2020-05-12_18-48-59.mkv -c:v libx264 -profile:v main -level:v 4.0 -c:a aac -strict -2 output.mp4 ```
+
+PS: i tried to use libfdk_acc but it's not open source, so i had to built it separately since it doesn't come in ffmpeg.
 
 Taken from FFmpeg documentation:
 
