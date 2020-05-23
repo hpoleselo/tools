@@ -17,6 +17,6 @@ echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.virtualenvs ; sou
 | echo "alias prog='cd ~/Documents/Codigos ; ls ;'" >> ~/.bashrc \
 | echo "alias scp-example='echo Example: scp archive_to_be_sent.py  TARGET_USER@TARGET_IP:~/Desktop'" >> ~/.bashrc \
 | echo "alias ex-ffmpeg='echo Example: ffmpeg -i filename.mkv -c:v libx264 -profile:v main -level:v 4.0 -c:a aac -strict -2 output.mp4 ;'" >> ~/.bashrc \
-| echo "alias s3d='LD_PRELOAD=/opt/Simplify3D-3.1.1/Interface.so /opt/Simplify3D-3.1.1/Simplify3D &;'" >> ~/.bashrc \
+| echo "alias s3d='LD_PRELOAD=/opt/Simplify3D-3.1.1/Interface.so /opt/Simplify3D-3.1.1/Simplify3D &'" >> ~/.bashrc \
 | echo "alias lar='cd ~/Documents/LaR ; ls ;'" >> ~/.bashrc
 
