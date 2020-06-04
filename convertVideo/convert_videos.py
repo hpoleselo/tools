@@ -31,7 +31,7 @@ output_video_format = '.mp4'
 initial_path = '/home/' + getuser()
 
 try:
-    file_path = initial_path + '/Videos/vokoscree/'
+    file_path = initial_path + '/Videos/vokoscreen/'
     # Change working directory to be not where the program is executed, but in the file_path
     os.chdir(file_path)
 except(OSError):
