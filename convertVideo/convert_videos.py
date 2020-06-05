@@ -6,13 +6,12 @@ from getpass import getuser
 from pathlib import Path
 
 """ 
-@brief: Based on the code from Otávio Miranda: https://www.youtube.com/watch?v=wtlnvpVpAf4
+@brief: Based on the code from Otavio Miranda: https://www.youtube.com/watch?v=wtlnvpVpAf4
 @goal: conversion from .mkv videos recorded on Vokoscreen so they can be edited in Adobe Premiere
 @command_reference: ffmpeg -i filename.mkv -c:v libx264 -profile:v main -level:v 4.0 -c:a aac -strict -2 output.mp4
 """
 
 # TODO: move converted files to /converted folder
-# TODO: CHECAR VERSAO PYTHON E DEPENDENDO DA VERSAO USAR NAO USAR f'string
 
 if sys.platform == "linux":
     ffmpeg_command = "ffmpeg"
@@ -43,11 +42,12 @@ except(OSError):
     file_path = new_path + new_folder + "/"
 
 try:
-    # os.walk return those 3 variables
+    # os.walk return those 3 variables, NOTE that if there was a folder inside /vokoscreen os.walk would look up those files as well!
     for dirpath, dirnames, filenames in os.walk(file_path):
         # Only filenames are of our interest in this case
         for filename in filenames:
             if filename.endswith('.mkv'):
+                print("\n ## Converting file: {} \n".format(filename))
                 # Supply whole path including filename in order to slice only the file name without extension
                 path_with_file = file_path + filename
 
@@ -56,9 +56,21 @@ try:
 
                 # Update output_video_name so we don't overwrite other files
                 output_video_name = filename_wout_extension + output_video_format
-                command = f'{ffmpeg_command} -i  {filename} {codec_video} {profile_video}' \
-                    f' {level_video} {codec_audio} {codec_audio_enable} {output_video_name} '
+                command = ffmpeg_command + " -i " + filename + " " + codec_video + " " + profile_video + " " + level_video + " " + codec_audio + " " + codec_audio_enable + " " + output_video_name
                 os.system(command)
 
 except(KeyboardInterrupt):
     print("Keyboard Interruption.")
+
+
+"""
+Attempt to implement solution for both Python3.5 and 3.6:
+useFString = False
+py_version = float(sys.version[0:3])
+if py_version <= 3.5:
+    useFString = False
+    print("Not using Fstring")
+if useFString:
+command = f'{ffmpeg_command} -i  {filename} {codec_video} {profile_video}' \
+    f' {level_video} {codec_audio} {codec_audio_enable} {output_video_name} '
+"""
