@@ -11,8 +11,6 @@ from pathlib import Path
 @command_reference: ffmpeg -i filename.mkv -c:v libx264 -profile:v main -level:v 4.0 -c:a aac -strict -2 output.mp4
 """
 
-# TODO: move converted files to /converted folder
-
 if sys.platform == "linux":
     ffmpeg_command = "ffmpeg"
 else:
@@ -34,9 +32,13 @@ try:
     # Change working directory to be not where the program is executed, but in the file_path
     os.chdir(file_path)
 except(OSError):
-    print("No vokoscreen folder was found, creating a new one in /Videos...")
+    print("No vokoscreen folder was found, creating a new one in /Videos and creating a folder for the converted video as well /voko_conv...")
     new_path = initial_path + '/Videos/'
     os.chdir(new_path)
+
+    # Creates the converted folder to ease the organization
+    create_folder_command = "mkdir voko_conv"
+    os.system(create_folder_command)
     new_folder = "pastona"
     os.system("mkdir " + new_folder)
     file_path = new_path + new_folder + "/"
@@ -58,6 +60,10 @@ try:
                 output_video_name = filename_wout_extension + output_video_format
                 command = ffmpeg_command + " -i " + filename + " " + codec_video + " " + profile_video + " " + level_video + " " + codec_audio + " " + codec_audio_enable + " " + output_video_name
                 os.system(command)
+
+    # After converting everything we move the converted files to voko_conv
+    move_command = "mv *.mp4 ../voko_conv"
+    os.system(move_command)
 
 except(KeyboardInterrupt):
     print("Keyboard Interruption.")
