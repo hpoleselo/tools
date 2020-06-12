@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 #ESTADO1=0 ESTADO2=1
 ESTADO1, ESTADO2 = range(2)
+counter = 0
 
 """ TODO: 
     1. TEST CONVERSION USING FFMPEG: ffmpeg -i rodrigo.ogg output.mp3
@@ -22,13 +23,25 @@ ESTADO1, ESTADO2 = range(2)
     5. sistema de pastas conv/downloaded
 """
 
+def retrieveToken():
+    """ Retrieves the Token from the txt file. """
+    try:
+        with (open("tokAccess.txt")) as fileRead:
+            lines = fileRead.readlines()
+            # Remove the \n in the txt file
+            lines_wout_n = [s.replace('\n','') for s in lines]
+            # Getting token
+            return lines_wout_n[0]
+    except(KeyboardInterrupt):
+        print("Proccess interrupted, could not get the Token.")
+
 def start(update, context):
-    logger.info("Chamou o start!")
+    logger.debug("Start function has been called!")
     update.message.reply_text('Send me MP3 so that i convert them for you! \nFirst send the audio with the following structure: /conv audio.ogg \nIf you wish to save them, press yes after receiving the converted audio.')
     #user = update.message.from_user
     # returns 0
-    logger.info("Retornando ESTADO1 (0)")
-    return ESTADO1
+    logger.debug("Going to state 2")
+    return ESTADO2
 
 
 def photo(update, context):
@@ -45,9 +58,47 @@ def photo(update, context):
     logger.info("Photo of %s: %s", user.first_name, 'user_photo.jpg')
     
     update.message.reply_text('Imagem foi baixada')
-    logger.info("Retornando ESTADO2 (1)")
+    logger.debug("Going to state 2")
     return ESTADO2
 
+
+def audio(update, context):
+    global counter
+    # uploada a ultima mensagem do usuario
+    user = update.message.from_user
+
+    #audio_file = message.audio
+    #audio_file = update.message.audio[-1].get_file()
+    #audio_file = bot.get_file(update.message.voice.file_id)
+    #print ("file_id: " + str(update.message.voice.file_id))
+    #audio_file.download('voice.ogg')
+
+    #option2
+    #file_id = update.message.audio.file_id
+    #audio_file = update.get_file(file_id)
+    #audio_file.download('teste.mp3')
+    
+    # Reason why the previous options didn't work
+    #So it appears that the bot- pass_user_data in the callback function is deprecated and from now on you should use context based callbacks.
+    #CallbackContext is an object that contains all the extra context information regarding an Update, error or Job.
+
+    #option3
+    audio_file = context.bot.getFile(update.message.audio.file_id)
+
+    logger.info("File size: %s bytes", audio_file.file_size)
+    counter += 1
+    audio_path = "./conv/"
+
+    # Instead get filename? i think it's better..
+    audio_name = str(user.first_name) + "_audio" + str(counter) + ".mp3"
+    audio_full = audio_path + audio_name
+    audio_file.download(audio_full)
+
+    logger.info("Audio has from %s has been received", user.first_name)
+    
+    update.message.reply_text('Audios foram convertidos')
+    #bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
+    return ESTADO2
 
 
 def cancel(update, context):
@@ -68,8 +119,8 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    
-    updater = Updater("API_KEY", use_context=True)
+    api_key = retrieveToken()
+    updater = Updater(api_key, use_context=True)
 
 
     # Get the dispatcher to register handlers
@@ -89,7 +140,8 @@ def main():
             # SINCE THE INDEX 0 OF THE DICTIONARY IS THE MESSAGE HANDLER SO photo() function is called.
             ESTADO1: [MessageHandler(Filters.photo, photo)],
 
-            ESTADO2: [MessageHandler(Filters.photo, photo)]
+            # It's gonna wait for an audio as a filter
+            ESTADO2: [MessageHandler(Filters.audio, audio)]
                     #CommandHandler('skip', skip_photo)]
 
                     
