@@ -37,15 +37,13 @@ def retrieveToken():
 
 def start(update, context):
     logger.debug("Start function has been called!")
-    update.message.reply_text('Send me MP3 so that i convert them for you! \nFirst send the audio with the following structure: /conv audio.ogg \nIf you wish to save them, press yes after receiving the converted audio.')
-    #user = update.message.from_user
-    # returns 0
+    update.message.reply_text('Send me .ogg so that i convert them for you! \nFirst send the audio with the following structure: /conv audio.ogg \nIf you wish to save them, press yes after receiving the converted audio.')
     logger.debug("Going to state 2")
     return ESTADO2
 
 
 def photo(update, context):
-    print("Entramos nessa função pois fomos para o ESTADO1 ou ESTADO2")
+    logger.debug("Photo function has been called.")
     # uploada a ultima mensagem do usuario
     user = update.message.from_user
 
@@ -64,40 +62,30 @@ def photo(update, context):
 
 def audio(update, context):
     global counter
-    # uploada a ultima mensagem do usuario
     user = update.message.from_user
-
-    #audio_file = message.audio
-    #audio_file = update.message.audio[-1].get_file()
-    #audio_file = bot.get_file(update.message.voice.file_id)
-    #print ("file_id: " + str(update.message.voice.file_id))
-    #audio_file.download('voice.ogg')
-
-    #option2
-    #file_id = update.message.audio.file_id
-    #audio_file = update.get_file(file_id)
-    #audio_file.download('teste.mp3')
     
     # Reason why the previous options didn't work
     #So it appears that the bot- pass_user_data in the callback function is deprecated and from now on you should use context based callbacks.
     #CallbackContext is an object that contains all the extra context information regarding an Update, error or Job.
-
-    #option3
     audio_file = context.bot.getFile(update.message.audio.file_id)
-
     logger.info("File size: %s bytes", audio_file.file_size)
+    
+    # TODO: get filename using document object
+    # TODO: add exception if the directory /conv is not there
+
+    # Building file name
     counter += 1
     audio_path = "./conv/"
-
-    # Instead get filename? i think it's better..
     audio_name = str(user.first_name) + "_audio" + str(counter) + ".mp3"
     audio_full = audio_path + audio_name
     audio_file.download(audio_full)
-
-    logger.info("Audio has from %s has been received", user.first_name)
-    
-    update.message.reply_text('Audios foram convertidos')
-    #bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
+    logger.info("Audio has from %s has been received", user.first_name)    
+    update.message.reply_text('Audio has been converted to mp3.')
+    logger.info("Sending audio to user...")
+    # chat_id for groups is usually negative
+    chat_id = update.message.chat_id
+    context.bot.send_audio(chat_id=chat_id, audio=open(audio_full, 'rb'))
+    logger.info("Audio sent.")
     return ESTADO2
 
 
