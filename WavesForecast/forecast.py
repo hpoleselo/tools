@@ -40,15 +40,71 @@ class TideChecker(object):
         def getContent(self, pageText):
                 soup = BS(pageText, "lxml")
 
-                # Exemplo anterior:
-                #container = soup.find('div', {'class' : "grafico_estado_actual_fondo"}).find('div', {'class' : "grafico_estado_actual_texto1"})
-                #baixaMares = container.find_all('span', {'class' : "rojo"})
+                period = []
+                energy = []
+                wave_height = []
+                wind = []
+                wind_state = []
+                # TODO: usar dictionary pro wind e wind direction
+                wind_direction = []
 
-                #TODO
-                # Periodo: <tr class=forecast-table__row data-row-name=""periods"> contem <td class="forecast-table__cell"><strong>8</strong></td> -> <strong>8</strong>
+                # find_all retorna um iteravel, por isso precisamos passar por um for
 
-                # Energia da onda: <tr class="forecast-table__row" data-row-name="energy"><td class="forecast-table__cell forecast-table-energy__cell"  
+                # Wave period
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"periods"})
+                for tableRow in forecastTableRows:
+                        tableCells = tableRow.find_all('td', class_='forecast-table__cell')
+                        for cell in tableCells:
+                                value = cell.find("strong").text
+                                period.append(value)
 
+                # Wave energy
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"energy"})
+                for tableRow in forecastTableRows:
+                        tableCells = tableRow.find_all('td', class_='forecast-table__cell')
+                        for cell in tableCells:
+                                value = cell.find("strong").text
+                                energy.append(value)
+
+                # TODO: Wind speed and direction
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"wind"})
+                for tableRow in forecastTableRows:
+                        print("\n Inicio ## \n")
+                        tableCells = tableRow.find_all('div', class_='forecast-table__value')
+                        # pra pegar a velo do vento usamos a tag <text>.text pra pegar o valor de dentro do text
+                        for cell in tableCells:
+                                wind_direction.append(cell.text)
+
+
+
+                # TODO: Wave height is different (the nesting)
+                """
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"wave-height"})
+                for tableRow in forecastTableRows:
+                        print("\n Inicio ## \n")
+                        tableCells = tableRow.find_all('td', class_='forecast-table__cell')
+                        for cell in tableCells:
+                                value = cell.find("strong").text
+                                print(value)
+                                wave_height.append(value)
+                """
+
+
+
+                print("\nResultados:")
+                print(len(energy))
+                print(len(period))
+
+                # When we parse the wind direction we get 'Vento' and 'km/h' as values, so we slice them out from the list!
+                wind_direction = wind_direction[2:]
+                print(wind_direction)
+                print(len(wind_direction))
+
+
+                #forecastTableCells = tableRow.find('td', class_='forecast-table__cell')
+                #print(forecastTableCells, end='\n'*2)
+
+                
 
                 
 
