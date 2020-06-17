@@ -43,10 +43,12 @@ class TideChecker(object):
                 period = []
                 energy = []
                 wave_height = []
-                wind = []
+                wind_speed = []
                 wind_state = []
                 # TODO: usar dictionary pro wind e wind direction
                 wind_direction = []
+                high_tide = []
+                low_tide = []
 
                 # find_all retorna um iteravel, por isso precisamos passar por um for
 
@@ -66,43 +68,78 @@ class TideChecker(object):
                                 value = cell.find("strong").text
                                 energy.append(value)
 
-                # TODO: Wind speed and direction
+                # Wind speed and direction
                 forecastTableRows = soup.find_all("tr", {"data-row-name":"wind"})
                 for tableRow in forecastTableRows:
-                        print("\n Inicio ## \n")
+                        # Gets the wind direction
                         tableCells = tableRow.find_all('div', class_='forecast-table__value')
-                        # pra pegar a velo do vento usamos a tag <text>.text pra pegar o valor de dentro do text
                         for cell in tableCells:
                                 wind_direction.append(cell.text)
 
+                        # Gets the wind speed
+                        windSpeeds = tableRow.find_all('text', class_='wind-icon-val')
+                        for windSpeed in windSpeeds:
+                                # TODO: Check wind speed, i don't think they are right
+                                wind_speed.append(windSpeed.text)
 
 
-                # TODO: Wave height is different (the nesting)
-                """
+                # High-tide TODO: see how we separate the data retrieved (regarding the height AND sometimes we get 3 or 4 high and low tides..)
+                # TODO: Are low tide and high tide always the same size? 46?
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"high-tide"})
+                for tableRow in forecastTableRows:
+                        tableCells = tableRow.find_all('div', class_='forecast-table__value--tiny')
+                        for cell in tableCells:
+                                high_tide.append(cell.text)
+
+                # Low-tide
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"low-tide"})
+                for tableRow in forecastTableRows:
+                        lowTides = tableRow.find_all('div', class_='forecast-table__value--tiny')
+                        for lowTide in lowTides:
+                                low_tide.append(lowTide.text)
+
+
+                # Wave height TODO: VER QUAL SWELL PEGAR, há 3 swells possiveis e ele ta confundindo na hora de pegar o swell!!!!
+                # TODO: Arrumar a direcao
                 forecastTableRows = soup.find_all("tr", {"data-row-name":"wave-height"})
                 for tableRow in forecastTableRows:
-                        print("\n Inicio ## \n")
-                        tableCells = tableRow.find_all('td', class_='forecast-table__cell')
-                        for cell in tableCells:
-                                value = cell.find("strong").text
-                                print(value)
-                                wave_height.append(value)
-                """
+                        swellDirections = tableRow.find_all('div', class_='forecast-table__value')
+                        for swellDirection in swellDirections:
+                                print(swellDirection.txt)
+
+                        waveHeights = tableRow.find_all('text', class_='swell-icon-val')
+                        for waveHeight in waveHeights:
+                                wave_height.append(waveHeight.text)
+
+
+                # TODO: Pegar dia da semana
+                forecastTableRows = soup.find_all("tr", {"data-row-name":"days"})
+                for tableRow in forecastTableRows:
+                        swellDirections = tableRow.find_all('div', class_='data-day-name')
+                        for swellDirection in swellDirections:
+                                print(swellDirection.txt)
+
+
+                # TODO: Pegar rating e escalar o melhor dia da semana como um resultado do boletim! Para isso precisariamos criar tipo uma tabela nossa
+                # Onde essa tabela tem as datas e escolheriamos o indice da tabela usando pandas?
 
 
 
                 print("\nResultados:")
-                print(len(energy))
-                print(len(period))
+                #print(wave_height)
+                #print(len(wave_height))
 
+
+
+
+                """
+                print(high_tide)
+                print(low_tide)
+                print(len(low_tide))
+                print(len(high_tide))
+                """
                 # When we parse the wind direction we get 'Vento' and 'km/h' as values, so we slice them out from the list!
                 wind_direction = wind_direction[2:]
-                print(wind_direction)
-                print(len(wind_direction))
-
-
-                #forecastTableCells = tableRow.find('td', class_='forecast-table__cell')
-                #print(forecastTableCells, end='\n'*2)
 
                 
 
