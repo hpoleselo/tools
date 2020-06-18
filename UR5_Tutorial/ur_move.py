@@ -1,7 +1,7 @@
+#!/usr/bin/env python
+
 import rospy
 
-# Como queremos a interface com o robo, o pacote que indica isso eh o ur_driver (pesquisar no google para mostrar para os telespectadores)
-import ur_driver
 
 # falar rapidamente sobre o actionlib
 import actionlib
@@ -15,8 +15,18 @@ client = 0
 # Mostrar antes no rostopic a leitura e os respectivos nomes das juntas!!
 nome_das_juntas = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
 
-config1 = [0,0,0,0,0,0]
-config2 = [1.57, 1.57, 1.57, 1.57, 1.57, 1.57]
+
+# Queremos chegar no comportamento mostrado, como chegar?
+# Basta pegar os valores das juntas em cada ponto, nesse caso nao vamos nos importar com a trajetoria
+
+
+
+# rostopic echo -n1 /joint_states
+# ir mexendo no TCP
+config1 = [-1.4515393416034144, -1.556147877370016, -1.5984099547015589, -0.033115688954488576, 1.5721852779388428, -0.7098024527179163]
+config2 =  [-1.9233949820147913, -1.7489426771747034, -1.3826277891742151, -0.061001125966207326, 2.0422892570495605, -0.7328742186175745]
+config3 = [-1.9248164335833948, -1.9114554564105433, -0.6337674299823206, -0.6473959128009241, 2.043708562850952, -0.7329643408404749]
+config4 = [-1.1509221235858362, -1.6764228979693812, -0.9353511969195765, -0.577367130910055, 1.2706621885299683, -0.6956394354449671]
 
 # Entender quais bibliotecas sao necessarias para controlar o robo
 # Entender o FollowJointTrajectoryGoal (dar motivacoes)
@@ -31,8 +41,15 @@ def mover_robo():
     objetivo.trajectory.joint_names = nome_das_juntas
     objetivo.trajectory.points = [
         # as velocidades nao importam, apenas a posicao, portanto lista com 6 0s
-        JointTrajectoryPoint(positions=config1, velocities=[0]*6, time_from_start=rospy.Duration(2.0))]
-        #JointTrajectoryPoint(positions=config2, velocities=[0]*6, time_from_start=rospy.Duration(3.0))]
+        # rospy.Duration vai ditar o tempo para chegar naquela joint 
+        JointTrajectoryPoint(positions=config1, velocities=[0]*6, time_from_start=rospy.Duration(2.0)),
+        JointTrajectoryPoint(positions=config2, velocities=[0]*6, time_from_start=rospy.Duration(4.0)),
+        # Falar sobre os tempos, que nao faz sentido colocar tempos extremamente baixos para configuracoes muito distantes no robo se nao
+        # o solver de cinematica inversa vai calcular algo que nao faz sentido
+        JointTrajectoryPoint(positions=config3, velocities=[0]*6, time_from_start=rospy.Duration(6.0)),
+        JointTrajectoryPoint(positions=config4, velocities=[0]*6, time_from_start=rospy.Duration(8.0)),
+        JointTrajectoryPoint(positions=config1, velocities=[0]*6, time_from_start=rospy.Duration(10.0))]
+
     client.send_goal(objetivo)
     try:
         client.wait_for_result()
