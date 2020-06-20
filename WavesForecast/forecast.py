@@ -1,3 +1,4 @@
+import datetime
 import requests
 import re
 import sys
@@ -43,7 +44,7 @@ class TideChecker(object):
                 soup = BS(pageText, "lxml")
 
 
-                verbose = True
+                verbose = False
 
                 period = []
                 energy = []
@@ -53,8 +54,11 @@ class TideChecker(object):
                 wind_direction = []
                 high_tide = []
                 low_tide = []
+                dates = []
 
 
+                # TODO: Ver se tem como enviar uma mensagem tao longa pelo telegram, caso nao, gerar imagem a partir de tabela?
+                # Criar um CSV e a partir do CSV plotar uma tabela? usar pandas mesmo pelo visto
                 # TODO: Arrumar a direcao das ondas
                 # TODO usar dictionary pro wind e wind direction
                 # TODO: Check wind speed, i don't think they are right
@@ -125,7 +129,18 @@ class TideChecker(object):
                                 wave_height.append(waveHeight.text)
 
 
-                # TODO: Pegar dia da semana
+                # Date
+                date = datetime.datetime.today()
+                for i in range(6):
+                        # Adds 
+                        if i == 0:
+                                dates.append(date.strftime("%b-%d"))
+                        date += datetime.timedelta(days=1)
+                        dates.append(date.strftime("%b-%d")) 
+
+
+                """
+                # Week days by using html parsing
                 forecastTableRows = soup.find_all("tr", {"data-row-name":"days"})
                 for tableRow in forecastTableRows:
                         # We have to extract in this case the VALUE of the attribute data-day-name
@@ -135,6 +150,7 @@ class TideChecker(object):
                                 #print(swellDirection)
                                 repElemName = swellDirection.get('name')
                                 #print(repElemName)
+                """
 
                 # When we parse the wind direction we get 'Vento' and 'km/h' as values, so we slice them out from the list!
                 wind_direction = wind_direction[2:]
@@ -159,13 +175,19 @@ class TideChecker(object):
                         print("\nMare baixa: ", low_tide)
                         print("Tamanho: ", len(low_tide))
 
+
+
                 return period, energy, wave_height, wind_speed, wind_direction
 
 
-        def processData(self):
+        def processData(self, period, energy, wave_height, wind_speed, wind_direction, dates):
                 """ All the data retrieved is gonna be treated now to be sent to Telegram
                 Send as text? Generate table using Pandas but then converting to csv style?
                 """
+                # Put this function 
+                # Create CSV file
+
+                # Using pandas, try to create a table from this csv and then generate image/text?
                 pass
 
                 
