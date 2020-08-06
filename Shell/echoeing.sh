@@ -20,5 +20,6 @@ echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.virtualenvs ; sou
 | echo "alias s3d='LD_PRELOAD=/opt/Simplify3D-3.1.1/Interface.so /opt/Simplify3D-3.1.1/Simplify3D &'" >> ~/.bashrc \
 | echo "alias lar='cd ~/Documents/LaR ; ls ;'" >> ~/.bashrc
 | echo "alias vidconv='cd ~/Documents/Codigos/convertVideo/ ; python3.5 convert_videos.py ;'" >> ~/.bashrc
+| echo "alias pyenv='source ~/Documents/Codigos//py-env/bin/activate ;'" >> ~/.bashrc
 
 
