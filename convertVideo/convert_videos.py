@@ -39,9 +39,13 @@ except(OSError):
     # Creates the converted folder to ease the organization
     create_folder_command = "mkdir voko_conv"
     os.system(create_folder_command)
-    new_folder = "pastona"
+    new_folder = "vokoscreen"
     os.system("mkdir " + new_folder)
     file_path = new_path + new_folder + "/"
+
+    # Moves files that were not on the vokoscreen folder into vokoscreen in order to them to be converted
+    move_files_command = "mv *.mkv vokoscreen"
+    os.system(move_files_command)
 
 try:
     # os.walk return those 3 variables, NOTE that if there was a folder inside /vokoscreen os.walk would look up those files as well!
@@ -65,6 +69,7 @@ try:
     move_command = "mv *.mp4 ../voko_conv"
     os.system(move_command)
 
+# TODO: Treat error when there's no converted video in /vokoscreen folder error: mv: cannot stat '*.mp4': No such file or directory
 except(KeyboardInterrupt):
     print("Keyboard Interruption.")
 
