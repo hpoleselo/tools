@@ -1,8 +1,33 @@
+# Manual unit testing
+def test_sum():
+    assert sum([1, 2, 3]) == 6, "Should be 6"
+
+if __name__ == "__main__":
+    test_sum()
+    print("Everything passed")
+
+
+# In order to make better unit tests and instead of creating single input tests for our unit test, is better to use a Test Runner, in this case, unittest
 import unittest
 
+# Instead of using assert statement, unittest uses TestCase
+# And we have now to create a class that inherits from the TestCase
+class TestSum(unittest.TestCase):
+
+    def test_sum(self):
+        self.assertEqual(sum([1, 2, 3]), 6, "Should be 6")
+
+if __name__ == '__main__':
+    print("Using unittest")
+    unittest.main()
+
+
+
+"""
 def functionToBeTested(x):
     y = x**2
     return y
+
 
 class MyTest(unittest.TestCase):
     def test(self):
@@ -23,3 +48,4 @@ class MyFunTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+"""
