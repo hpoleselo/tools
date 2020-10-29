@@ -22,6 +22,7 @@ echo "alias runVirtualEnv ='export WORKON_HOME=/home/henrivis/.virtualenvs ; sou
 | echo "alias vidconv='cd ~/Documents/Codigos/convertVideo/ ; python3.6 convert_videos.py ;'" >> ~/.bashrc \
 | echo "alias pyenv='source ~/Documents/Codigos/py-env/bin/activate ;'" >> ~/.bashrc \
 | echo "alias deslig='sudo shutdown -P +35'" >> ~/.bashrc \
-| echo "alias rfcaster='python ~/Documents/Codigos/telegramForecaster/src/telegram-interface.py'" >> ~/.bashrc
+| echo "alias rfcaster='python ~/Documents/Codigos/telegramForecaster/src/telegram-interface.py'" >> ~/.bashrc \
+| echo "alias comprimir='echo 7z-Example: 7z a filename.7z -p pwd -mhe folder/files'" >> ~/.bashrc 
 
 
