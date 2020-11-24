@@ -10,49 +10,41 @@ from scipy.fft import rfft, rfftfreq
 # Sample frequency
 FS = 44100
 # In seconds
-DURATION = 5
+DURATION = 3
+# Number of points
+POINTS = DURATION*FS
+
+# TODO:
+# Real time fft plotting
+# Run both programs over TCP/IP using handshake etc
 
 def capture_audio():
-    myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
+    recording = sd.rec(int(POINTS), samplerate=FS, channels=2)
     sd.wait()  # Wait until recording is finished
-    write('output.wav', fs, myrecording)  # Save as WAV file 
-
+    print("The recorded audio returns a 2D array with (frequency sample*duration in s) points, so it would be 2 equal columns because we chose stereo.")
+    print("Shape: \n", recording.shape)
+    print("Values: \n", recording)
+    #write('output.wav', FS, myrecording)  # Save as WAV file
+    return recording 
 
 def analyze_audio(audio):
-    # Number of samples in normalized_tone
-    N = FS * DURATION
-
+    # Just extract one column (mono) since it's stereo
+    audio = audio[:,0]
     yf = rfft(audio)
-    xf = rfftfreq(N, 1 / FS)
+    xf = rfftfreq(POINTS, 1 / FS)
 
     plt.plot(xf, np.abs(yf))
     plt.show()
 
+    # TODO: Add phase view
 
-def generate_sine_wave(freq, sample_rate, duration):
-    x = np.linspace(0, duration, FS * DURATION, endpoint=False)
-    frequencies = x * freq
-    # 2pi because np.sin takes radians
-
-    
-    y = np.sin((2 * np.pi) * frequencies)
-    return x, y
+def time_domain_plot(audio):
+    # Play audio live
+    pass
 
 def main():
-    # Generate a 2 hertz sine wave that lasts for 5 seconds
-    x, y = generate_sine_wave(2, FS, DURATION)
-
-    _, nice_tone = generate_sine_wave(400, FS, DURATION)
-    _, noise_tone = generate_sine_wave(4000, FS, DURATION)
-    noise_tone = noise_tone * 0.3
-
-    mixed_tone = nice_tone + noise_tone
-    normalized_tone = np.int16((mixed_tone / mixed_tone.max()) * 32767)
-
-    plt.plot(normalized_tone[:1000])
-    plt.show()
-    analyze_audio(normalized_tone)
-    write("mysinewave.wav", FS, normalized_tone)
-
+    recording = capture_audio()
+    analyze_audio(recording)
 
 main()
+
