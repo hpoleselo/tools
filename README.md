@@ -1,6 +1,8 @@
 # Tools
 
+## Virtualenv Setup and Shell/Batch Scripts ([```/Shell```](https://github.com/hpoleselo/tools/tree/master/Shell))
 
+Initialize Python Virtual Environment: note that I had to end up using the command ```$ source initialize-pyenv.sh``` instead of ``` $ sh ``` [the reason why](https://askubuntu.com/questions/98782/how-to-run-an-alias-in-a-shell-script).
 
 ## Telegram Bot Tide Checker ([``` /SurfBot ```](https://github.com/hpoleselo/tools/tree/master/SurfBot))
 
