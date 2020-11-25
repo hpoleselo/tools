@@ -3,6 +3,7 @@ from scipy.io.wavfile import write
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.fft import rfft, rfftfreq
+from pandas import DataFrame, Series
 
 #sudo apt-get install libportaudio2 in order to use sounddevice
 #sudo apt-get install python3-tk
@@ -24,7 +25,7 @@ def capture_audio():
     sd.wait()
     print("The recorded audio returns a 2D array with (frequency sample*duration in s) points, so it would be 2 equal columns because we chose stereo.")
     print("Shape: \n", recording.shape)
-    print("Values: \n", recording)
+    #print("Values: \n", recording)
     #write('output.wav', FS, recording)
     return recording 
 
@@ -33,17 +34,31 @@ def analyze_audio(audio):
     audio = audio[:,0]
     yf = rfft(audio)
     # Return in abs because we want the module from a complex number, despite having only real part (because of the rrft)
-    energy_peak = np.max(np.abs(yf))
-    print("\nEnergy Peak: ", energy_peak)
-    #correspondent_index = np.where(yf == energy_peak)
-    # TODO: We have to threshold it because somehow the max peak is being on 0Hz
-    # Use Pandas to do that (get 3 highest peak values but limit it to 1000 for magnitude)
-    #yf(correspondent_index)
-    #print("\nCorrespondent Frequency Peak: ", frequency_peak)
+    yf_s = Series(abs(yf))
+    
+    # The band where we want to detect our signal 17-21kHz
+    yf_s = yf_s[17000:21000]
+    print(yf_s.nlargest(20))
+
+
     # Show on graph the correspondant point
     xf = rfftfreq(POINTS, 1 / FS)
     plt.plot(xf, np.abs(yf))
     plt.show()
+
+def extract_correspondant_freq():
+    # Return in abs because we want the module from a complex number, despite having only real part (because of the rrft)
+    # Create the following magnitude:
+    yf_df = DataFrame({'magnitude':abs(yf)})
+    print(yf_df)
+    yf_df['freq'] = ''
+    yf_df['freq'] = yf_df.index
+    #print(yf_df.index.name)
+    #yf_df.set_index('freq', inplace=True)
+    print(yf_df.loc[(yf_df['magnitude'] > 30) & (yf_df['freq'] > 10000)])
+    #for col in yf_df.columns:
+    #   yf_df[yf_df[col] > 30].index.tolist()
+    #print(yf_df.nlargest(5,'magnitude'))
 
 def time_domain_plot(audio):
     # Play audio live
