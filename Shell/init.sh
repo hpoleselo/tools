@@ -1,5 +1,5 @@
 # General utilities
-sudo apt-get install terminator git deluge curl gparted python3-pip python3-dev okular vlc filezilla vokoscreen tree gimp docker.io htop mediainfo ffmpeg p7zip-full usb-creator-gtk \
+sudo apt-get install terminator git deluge curl gparted python3-pip python3-dev okular vlc filezilla vokoscreen tree gimp docker.io htop mediainfo ffmpeg p7zip-full usb-creator-gtk net-tools \
 
 # Reminder for virtual environment initialization
 echo "\nvirtualenv --python=/usr/bin/python3.5 py-env"
