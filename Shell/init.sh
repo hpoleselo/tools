@@ -1,8 +1,9 @@
 # General utilities
-sudo apt-get install terminator git deluge curl gparted python3-pip python3-dev okular vlc filezilla vokoscreen tree gimp docker.io htop mediainfo ffmpeg p7zip-full usb-creator-gtk net-tools openssh-server x11vnc \
+sudo apt-get install terminator git deluge curl gparted python3-pip python3-dev python3-venv okular vlc filezilla vokoscreen tree gimp docker.io htop mediainfo ffmpeg p7zip-full usb-creator-gtk net-tools openssh-server x11vnc \
 
 # Reminder for virtual environment initialization
-echo "\nvirtualenv --python=/usr/bin/python3.5 py-env"
+#echo "\nvirtualenv --python=/usr/bin/python3.5 py-env"
+echo "Don't forget to python3 -m venv py-env on ~/Documents/Codigos to initialize the Python virtual environment!
 
 # Echoing programs that aren't available in aptitude and i should not forget to install
 echo "\nDon't forget to install: Postman, Telegram, URSim, Todoist https://github.com/KryDos/todoist-linux/releases \n"
