@@ -1,0 +1,7 @@
+{
+    "email": "foo@bar.com",
+    "books": [
+        {"title": "Hitchhikers Guide to the Galaxy", "isbn": "123456789"},
+        {"title": "Clean Hey", "isbn": "487654321"}
+    ]
+}

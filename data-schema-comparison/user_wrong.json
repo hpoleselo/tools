@@ -1,0 +1,11 @@
+{
+    "email": "foo@bar.com",
+    "books": [
+        {"title": "Hitchhikers Guide to the Galaxy", "isbn": "123456789"},
+        {"title": "Clean Hey", "isbn": "487654321"},
+        {"title": "Clean Ho", "isbn": "387654321"},
+        {"title": "Clean Lets", "isbn": "287654321"},
+        {"title": "Clean Go", "isbn": "187654321"},
+        {"title": "Clean Coder" }
+    ]
+}
